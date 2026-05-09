@@ -916,10 +916,11 @@
       const phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
 
-      if(name.length < 3){
-        formMessage.innerHTML = "Please enter a valid name.";
-        formMessage.style.color = "#ef4444";
-        return;
+     if(name.trim().length < 2){
+    formMessage.innerHTML = "Please enter a valid name.";
+    formMessage.style.color = "#ef4444";
+    return;
+}
       }
 
       if(!email.includes('@')){
