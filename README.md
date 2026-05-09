@@ -958,26 +958,5 @@ onlineButtons.forEach(btn => {
 
 </body>
 </html>
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-Fm92qmZI",
-  authDomain: "smart-tots-school.firebaseapp.com",
-  projectId: "smart-tots-school",
-  storageBucket: "smart-tots-school.firebasestorage.app",
-  messagingSenderId: "823761166779",
-  appId: "1:823761166779:web:fbebeab6a51e716e5f249e",
-  measurementId: "G-NPFC39J976"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 # SMART-TOTS
 Tech next Gen Kids
