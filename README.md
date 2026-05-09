@@ -982,10 +982,11 @@ form.addEventListener("submit", async (e) => {
   const phone = document.getElementById("phone").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  if(name.length < 3){
-    formMessage.innerHTML = "Please enter a valid name.";
+if(name.trim().length < 2){
+    formMessage.innerHTML = "Enter valid name";
     formMessage.style.color = "#ef4444";
     return;
+}
   }
 
   if(!email.includes("@")){
