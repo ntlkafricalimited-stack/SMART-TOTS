@@ -904,50 +904,91 @@
       observer.observe(el);
     });
 
-    // CONTACT FORM VALIDATION
-   const form = document.getElementById('contactForm');
+    // CONTACT FORM VALIDATION<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-fM92qmZI",
+  authDomain: "smart-tots-school.firebaseapp.com",
+  projectId: "smart-tots-school",
+  storageBucket: "smart-tots-school.appspot.com",
+  messagingSenderId: "823761166779",
+  appId: "1:823761166779:web:fbeab6a51e716e5f249e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+console.log("Firebase connected successfully");
+
+const form = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
+form.addEventListener('submit', async function(e){
 
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
+  e.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const message = document.getElementById('message').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const message = document.getElementById('message').value.trim();
 
-      if(name.length < 3){
-        formMessage.innerHTML = "Please enter a valid name.";
-        formMessage.style.color = "#ef4444";
-        return;
-      }
+  if(name.length < 3){
+    formMessage.innerHTML = "Please enter a valid name.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
 
-      if(!email.includes('@')){
-        formMessage.innerHTML = "Please enter a valid email.";
-        formMessage.style.color = "#ef4444";
-        return;
-      }
+  if(!email.includes('@')){
+    formMessage.innerHTML = "Please enter a valid email.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
 
-      if(phone.length < 8){
-        formMessage.innerHTML = "Please enter a valid phone number.";
-        formMessage.style.color = "#ef4444";
-        return;
-      }
+  if(phone.length < 8){
+    formMessage.innerHTML = "Please enter a valid phone number.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
 
-      if(message.length < 10){
-        formMessage.innerHTML = "Message is too short.";
-        formMessage.style.color = "#ef4444";
-        return;
-      }
+  if(message.length < 10){
+    formMessage.innerHTML = "Message is too short.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
 
-      formMessage.innerHTML = "Inquiry submitted successfully!";
-      formMessage.style.color = "#22c55e";
+  try {
 
-      form.reset();
+    await addDoc(collection(db, "inquiries"), {
+      name,
+      email,
+      phone,
+      message,
+      createdAt: new Date()
     });
 
-  </script>
+    formMessage.innerHTML = "Inquiry submitted successfully!";
+    formMessage.style.color = "#22c55e";
 
+    form.reset();
+
+  } catch(error){
+
+    console.error(error);
+
+    formMessage.innerHTML = "Error submitting inquiry.";
+    formMessage.style.color = "#ef4444";
+  }
+
+});
+
+</script>
 </body>
 </html>
