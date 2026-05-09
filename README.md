@@ -929,7 +929,7 @@
       }
 
       if(phone.length < 8){
-        formMessage.innerHTML = "Please enter a valid phone number.";
+        formMessage.innerHTML = "0745393259.";
         formMessage.style.color = "#ef4444";
         return;
       }
