@@ -967,11 +967,13 @@ const firebaseConfig = {
   appId: "1:823761166779:web:fbeab6a51e716e5f249e"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 console.log("Firebase connected successfully");
 
+// CONTACT FORM
 const form = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
@@ -983,37 +985,38 @@ form.addEventListener("submit", async (e) => {
   const phone = document.getElementById("phone").value.trim();
   const message = document.getElementById("message").value.trim();
 
-if(name.length < 2){
-  formMessage.innerHTML = "Please enter a valid name.";
-  formMessage.style.color = "#ef4444";
-  return;
-}
+  // VALIDATION
+  if (name.length < 2) {
+    formMessage.innerHTML = "Please enter a valid name.";
+    formMessage.style.color = "#ef4444";
+    return;
   }
 
-  if(!email.includes("@")){
+  if (!email.includes("@")) {
     formMessage.innerHTML = "Please enter a valid email.";
     formMessage.style.color = "#ef4444";
     return;
   }
 
-  if(phone.length < 8){
+  if (phone.length < 8) {
     formMessage.innerHTML = "Please enter a valid phone number.";
     formMessage.style.color = "#ef4444";
     return;
   }
 
-  if(message.length < 10){
+  if (message.length < 10) {
     formMessage.innerHTML = "Message is too short.";
     formMessage.style.color = "#ef4444";
     return;
   }
 
+  // SAVE TO FIREBASE
   try {
     await addDoc(collection(db, "inquiries"), {
-      name,
-      email,
-      phone,
-      message,
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
       createdAt: new Date()
     });
 
