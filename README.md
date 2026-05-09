@@ -948,8 +948,6 @@
     });
 
   </script>
-</script>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -972,16 +970,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const form = document.getElementById("contactForm");
-const formMessage = document.getElementById("formMessage");
+console.log("Firebase connected successfully");
 
-form.addEventListener("submit", async (e) => {
+const form = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
+form.addEventListener('submit', async function(e){
+
   e.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const message = document.getElementById("message").value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const message = document.getElementById('message').value.trim();
 
   if(name.length < 3){
     formMessage.innerHTML = "Please enter a valid name.";
@@ -989,7 +990,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if(!email.includes("@")){
+  if(!email.includes('@')){
     formMessage.innerHTML = "Please enter a valid email.";
     formMessage.style.color = "#ef4444";
     return;
@@ -1022,15 +1023,17 @@ form.addEventListener("submit", async (e) => {
 
     form.reset();
 
-  } catch (error) {
+  } catch(error){
 
     console.error(error);
 
     formMessage.innerHTML = "Error submitting inquiry.";
     formMessage.style.color = "#ef4444";
   }
+
 });
 
+</script>
 </script>
 
 </body>
