@@ -905,8 +905,9 @@
     });
 
     // CONTACT FORM VALIDATION
-    const form = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
+   const form = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
