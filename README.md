@@ -956,7 +956,7 @@ const firebaseConfig = {
  apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-Fm92qmZI",
   authDomain: "smart-tots-school.firebaseapp.com",
   projectId: "smart-tots-school",
-  storageBucket: "smart-tots-school.firebasestorage.app",
+  storageBucket: "smart-tots-school.appspot.com",
   messagingSenderId: "823761166779",
   appId: "1:823761166779:web:fbebeab6a51e716e5f249e",
   measurementId: "G-NPFC39J976"
