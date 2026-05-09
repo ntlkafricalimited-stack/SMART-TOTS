@@ -1,152 +1,69 @@
-<!-- JAVASCRIPT -->
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Tots Junior</title>
 
-  // NAVBAR SCROLL
-  const navbar = document.getElementById('navbar');
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 50){
-      navbar.classList.add('nav-scrolled');
-    } else {
-      navbar.classList.remove('nav-scrolled');
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #050816;
+      color: white;
     }
-  });
 
-  // MOBILE MENU
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+      url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
 
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-  });
+    .glass {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
 
-  // DARK/LIGHT MODE
-  const themeBtns = [
-    document.getElementById('themeToggle'),
-    document.getElementById('themeToggleMobile')
-  ];
+  <!-- HERO -->
+  <section class="hero flex items-center justify-center text-center px-6">
 
-  themeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    <div class="max-w-4xl">
 
-      document.body.classList.toggle('light');
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        Smart Tots Junior
+      </h1>
 
-      const isLight = document.body.classList.contains('light');
+      <p class="text-xl text-slate-300 mb-10">
+        Nurturing Tomorrow's Tech Geniuses Through Coding, Robotics & STEM Education.
+      </p>
 
-      themeBtns.forEach(b => {
-        b.innerHTML = isLight
-          ? '<i class="fa-solid fa-sun"></i>'
-          : '<i class="fa-solid fa-moon"></i>';
-      });
+      <a href="#contact" class="bg-cyan-500 hover:bg-cyan-400 transition px-8 py-4 rounded-full text-black font-bold">
+        Enroll Today
+      </a>
 
-    });
-  });
+    </div>
 
-  // SCROLL ANIMATION
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('show');
-      }
-    });
-  }, { threshold: 0.15 });
+  </section>
 
-  document.querySelectorAll('.fade-up').forEach(el=>{
-    observer.observe(el);
-  });
+  <!-- ABOUT -->
+  <section class="py-24 px-6">
 
-</script>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
-<script type="module">
+      <img
+        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+        class="rounded-3xl"
+      />
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-fM92qmZI",
-  authDomain: "smart-tots-school.firebaseapp.com",
-  projectId: "smart-tots-school",
-  storageBucket: "smart-tots-school.appspot.com",
-  messagingSenderId: "823761166779",
-  appId: "1:823761166779:web:fbeab6a51e716e5f249e"
-};
-
-// FIREBASE
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-console.log("Firebase connected");
-
-// FORM
-const form = document.getElementById("contactForm");
-const formMessage = document.getElementById("formMessage");
-
-form.addEventListener("submit", async (e) => {
-
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  // VALIDATION
-  if(name.length < 2){
-    formMessage.innerHTML = "Please enter a valid name.";
-    formMessage.style.color = "#ef4444";
-    return;
-  }
-
-  if(!email.includes("@")){
-    formMessage.innerHTML = "Please enter a valid email.";
-    formMessage.style.color = "#ef4444";
-    return;
-  }
-
-  if(phone.length < 8){
-    formMessage.innerHTML = "Please enter a valid phone number.";
-    formMessage.style.color = "#ef4444";
-    return;
-  }
-
-  if(message.length < 10){
-    formMessage.innerHTML = "Message is too short.";
-    formMessage.style.color = "#ef4444";
-    return;
-  }
-
-  // SEND TO FIREBASE
-  try {
-
-    await addDoc(collection(db, "inquiries"), {
-      name,
-      email,
-      phone,
-      message,
-      createdAt: new Date()
-    });
-
-    formMessage.innerHTML = "Inquiry submitted successfully!";
-    formMessage.style.color = "#22c55e";
-
-    form.reset();
-
-  } catch(error){
-
-    console.error(error);
-
-    formMessage.innerHTML = "Error submitting inquiry.";
-    formMessage.style.color = "#ef4444";
-  }
-
-});
-
-</script>
-
-</body>
+      <div>
 </html>
