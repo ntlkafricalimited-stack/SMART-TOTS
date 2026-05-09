@@ -950,22 +950,83 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
- apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-Fm92qmZI",
+  apiKey: "AIzaSyAOo2cSdwAHeCxE5nyqmvUlSn-fM92qmZI",
   authDomain: "smart-tots-school.firebaseapp.com",
   projectId: "smart-tots-school",
   storageBucket: "smart-tots-school.appspot.com",
   messagingSenderId: "823761166779",
-  appId: "1:823761166779:web:fbebeab6a51e716e5f249e",
-  measurementId: "G-NPFC39J976"
+  appId: "1:823761166779:web:fbeab6a51e716e5f249e"
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-console.log("Firebase connected");
+console.log("Firebase connected successfully");
+
+const form = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if(name.length < 3){
+    formMessage.innerHTML = "Please enter a valid name.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
+
+  if(!email.includes("@")){
+    formMessage.innerHTML = "Please enter a valid email.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
+
+  if(phone.length < 8){
+    formMessage.innerHTML = "Please enter a valid phone number.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
+
+  if(message.length < 10){
+    formMessage.innerHTML = "Message is too short.";
+    formMessage.style.color = "#ef4444";
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "inquiries"), {
+      name,
+      email,
+      phone,
+      message,
+      createdAt: new Date()
+    });
+
+    formMessage.innerHTML = "Inquiry submitted successfully!";
+    formMessage.style.color = "#22c55e";
+
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+
+    formMessage.innerHTML = "Error submitting inquiry.";
+    formMessage.style.color = "#ef4444";
+  }
+});
 </script>
 
 </body>
